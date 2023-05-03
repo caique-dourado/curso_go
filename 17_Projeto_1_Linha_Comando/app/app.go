@@ -10,41 +10,36 @@ import (
 
 func Gerar() *cli.App {
 	app := cli.NewApp()
-	app.Name = "Aplicação de linha de comando"
-	app.Usage = "Busca IP's e nomes de servidores"
-	//cria uma flag padrão para a cli.command
-	flags := []cli.Flag{
+	app.Name = "Busca ip's e nomes de servidores"
+	app.Usage = "Busca ip's e nomes de servidores na internet"
+	flag := []cli.Flag{
 		cli.StringFlag{
 			Name:  "host",
-			Value: "google.com.br",
+			Value: "amazon.com",
 		},
 	}
 	app.Commands = []cli.Command{
-		//Criando os comandos do terminal
-		{
-			Name:  "ip",
-			Usage: "Busca endereços de Ip's na internet",
-			Flags: flags,
-			//Ação do comando
-			Action: BuscaIp,
-		},
 
 		{
-			Name:  "servidores",
-			Usage: "Busca nome de servidor na internet",
-			Flags: flags,
-			//Ação do comando
-			Action: BuscaNome,
+
+			Name:   "ip",
+			Action: buscaIp,
+			Flags:  flag,
+		},
+		{
+			Name:   "servidores",
+			Action: buscaServidor,
+			Flags:  flag,
 		},
 	}
 	return app
+
 }
 
-func BuscaIp(c *cli.Context) {
+func buscaIp(c *cli.Context) {
 	host := c.String("host")
-	//Obtem o Ip onde o site estar hospedado
-	ips, erro := net.LookupIP(host)
 
+	ips, erro := net.LookupIP(host)
 	if erro != nil {
 		log.Fatal(erro)
 	}
@@ -55,14 +50,15 @@ func BuscaIp(c *cli.Context) {
 
 }
 
-func BuscaNome(c *cli.Context) {
+func buscaServidor(c *cli.Context) {
 	host := c.String("host")
-	//Obtem o nome do servidor
-	servidores, erro := net.LookupNS(host)
+
+	ips, erro := net.LookupNS(host)
 	if erro != nil {
 		log.Fatal(erro)
 	}
-	for _, servidor := range servidores {
-		fmt.Println(servidor.Host)
+	for _, ip := range ips {
+		fmt.Println(ip)
 	}
+
 }
