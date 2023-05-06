@@ -19,7 +19,7 @@ func TestTipoEndereco(t *testing.T) {
 		{"Praça Central", "Tipo inválido"},
 		{"Rodovia dos Bandeirantes", "Rodovia"},
 		{"Travessa da Felicidade", "Travessa"},
-		{"Praça da Alegria", "Praça"},
+		{"", "Tipo inválido"},
 	}
 	//Pecorrendo o struct de cenarioTeste e pegando cada elemento e enviando para a função TipoEndereco()
 	for _, tipoEsperado := range cenarioTeste {
