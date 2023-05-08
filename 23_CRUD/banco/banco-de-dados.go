@@ -9,7 +9,7 @@ import (
 // A função externa Conectar retorna uma conexao(*sql.DB) ou um erro (error)
 func Conectar() (*sql.DB, error) {
 	//string de conexão
-	uri := "user:@tcp(localhost:3306)/databasename?charset=utf8mb4&Time=True&Loc=Local"
+	uri := "root:@tcp(localhost:3306)/localdatabase?charset=utf8mb4&parseTime=True&loc=Local"
 
 	//abrindo uma conexão
 	db, erro := sql.Open("mysql", uri)
